@@ -1,8 +1,3 @@
-window.onload = function() {
-    localStorage.clear(); 
-    // This wipes all saved data for this site immediately when the page loads
-};
-
 const r1_matchups = [
     { id: "r1_s1", teams: ["Buffalo Sabres", "Boston Bruins"] },
     { id: "r1_s2", teams: ["Tampa Bay Lightning", "Montreal Canadiens"] },
