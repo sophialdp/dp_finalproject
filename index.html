@@ -1,28 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NHL Playoff Hub</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <header>
+        <h1>🏒 NHL Playoff Hub</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="teams.html">Teams</a>
+            <a href="xbracket.html">Bracket</a>
+            <a href="quiz.html">Quiz</a>
+        </nav>
+    </header>
 
-<header>
-    <h1>🏒 NHL Playoff Hub</h1>
-</header>
-
-<nav>
-    <a href="index.html">Home</a>
-    <a href="Teams.html">Teams</a>
-    <a href="xBracket.html">Bracket</a>
-    <a href="Quiz.html">Quiz</a>
-</nav>
-
-<section class="container">
-    <div class="card">
-        <h2>Welcome</h2>
-        <p>Explore NHL teams, build your Stanley Cup bracket, and test your hockey knowledge.</p>
-    </div>
-</section>
-
+    <main>
+        <section class="welcome-section">
+            <h2>Welcome to the 2026 Postseason</h2>
+            <p>Explore NHL teams, build your Stanley Cup bracket, and test your hockey knowledge.</p>
+            <div class="cta-buttons">
+                <a href="xbracket.html" class="btn">Start Your Bracket</a>
+            </div>
+        </section>
+    </main>
+    <script src="app.js"></script>
 </body>
 </html>
