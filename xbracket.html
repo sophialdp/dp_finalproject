@@ -17,24 +17,59 @@
         </nav>
     </header>
 
-<main>
-    <div id="error" style="color: red; font-weight: bold;"></div>
+    <main>
+        <div id="error" style="color: #ff4d4d; font-weight: bold; text-align: center; margin-bottom: 10px;"></div>
 
-    <section id="step1">
-        <h2>Round 1</h2>
-        <div class="grid-container">
-            <div>Matchup 1: <select id="r1_s1"></select></div>
-            <div>Matchup 2: <select id="r1_s2"></select></div>
-            <div>Matchup 3: <select id="r1_s3"></select></div>
-            <div>Matchup 4: <select id="r1_s4"></select></div>
-            <div>Matchup 5: <select id="r1_s5"></select></div>
-            <div>Matchup 6: <select id="r1_s6"></select></div>
-            <div>Matchup 7: <select id="r1_s7"></select></div>
-            <div>Matchup 8: <select id="r1_s8"></select></div>
-        </div>
-        <button onclick="saveRound1()" class="btn">Save Round 1</button>
-    </section>
+        <section id="step1">
+            <h2>Round 1 Matchups</h2>
+            <div class="grid-container">
+                <div class="card"><h4>Sabres vs Bruins</h4><select id="r1_s1"></select></div>
+                <div class="card"><h4>Lightning vs Canadiens</h4><select id="r1_s2"></select></div>
+                <div class="card"><h4>Hurricanes vs Senators</h4><select id="r1_s3"></select></div>
+                <div class="card"><h4>Penguins vs Flyers</h4><select id="r1_s4"></select></div>
+                <div class="card"><h4>Avalanche vs Kings</h4><select id="r1_s5"></select></div>
+                <div class="card"><h4>Stars vs Wild</h4><select id="r1_s6"></select></div>
+                <div class="card"><h4>Knights vs Mammoth</h4><select id="r1_s7"></select></div>
+                <div class="card"><h4>Oilers vs Ducks</h4><select id="r1_s8"></select></div>
+            </div>
+            <button onclick="saveRound1()" class="btn">Save Round 1 Winners</button>
+        </section>
 
+        <section id="step2" style="display:none;">
+            <h2>Conference Finals</h2>
+            <div class="grid-container">
+                <div class="card"><h4>East Semi 1</h4><select id="r2_w1"></select></div>
+                <div class="card"><h4>East Semi 2</h4><select id="r2_w2"></select></div>
+                <div class="card"><h4>West Semi 1</h4><select id="r2_w3"></select></div>
+                <div class="card"><h4>West Semi 2</h4><select id="r2_w4"></select></div>
+            </div>
+            <button onclick="saveRound2()" class="btn">Save Round 2 Winners</button>
+        </section>
+
+        <section id="step3" style="display:none;">
+            <h2>Stanley Cup Finals</h2>
+            <div class="grid-container">
+                <div class="card"><h4>Eastern Champion</h4><select id="f1"></select></div>
+                <div class="card"><h4>Western Champion</h4><select id="f2"></select></div>
+            </div>
+            <button onclick="saveFinals()" class="btn">Save Finalists</button>
+        </section>
+
+        <section id="step4" style="display:none;">
+            <h2>Choose Your Champion</h2>
+            <div class="card">
+                <select id="champion"></select>
+                <br><br>
+                <button onclick="saveChampion()" class="btn">Declare 2026 Winner</button>
+            </div>
+        </section>
+
+        <div id="savedBracket" style="margin-top: 30px;"></div>
+    </main>
+
+    <script src="xapp.js"></script>
+</body>
+</html>
     <section id="step2" style="display:none;">
         <h2>Conference Finals</h2>
         <select id="r2_w1"></select>
