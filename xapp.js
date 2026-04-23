@@ -1,6 +1,7 @@
-// ==========================================
-// 1. DATA CONFIGURATION
-// ==========================================
+window.onload = function() {
+    localStorage.clear(); 
+    // This wipes all saved data for this site immediately when the page loads
+};
 
 const r1_matchups = [
     { id: "r1_s1", teams: ["Buffalo Sabres", "Boston Bruins"] },
@@ -43,9 +44,6 @@ const quizData = [
 let currentQuestion = 0;
 let userScore = 0;
 
-// ==========================================
-// 2. SHARED UTILITIES
-// ==========================================
 
 function fillDropdown(id, list) {
     const el = document.getElementById(id);
@@ -59,9 +57,6 @@ function fillDropdown(id, list) {
     });
 }
 
-// ==========================================
-// 3. BRACKET LOGIC
-// ==========================================
 
 function saveRound1() {
     const r1_winners = r1_matchups.map(m => document.getElementById(m.id).value);
@@ -119,9 +114,7 @@ function displayBracket() {
     }
 }
 
-// ==========================================
-// 4. TEAMS LOGIC
-// ==========================================
+
 
 function loadTeams() {
     const teamListDiv = document.getElementById("teamList");
@@ -135,9 +128,7 @@ function loadTeams() {
     });
 }
 
-// ==========================================
-// 5. QUIZ LOGIC
-// ==========================================
+
 
 function loadQuiz() {
     const questionEl = document.getElementById("question");
@@ -178,9 +169,7 @@ function loadQuiz() {
     });
 }
 
-// ==========================================
-// 6. INITIALIZATION (FIRE ON PAGE LOAD)
-// ==========================================
+
 
 document.addEventListener('DOMContentLoaded', () => {
     // Check for Bracket Page
