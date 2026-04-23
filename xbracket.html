@@ -17,11 +17,48 @@
         </nav>
     </header>
 
-    <main>
-        <div id="bracket-container">
-            </div>
-        <button id="save-bracket" class="btn">Save My Predictions</button>
-    </main>
+<main>
+    <div id="error" style="color: red; font-weight: bold;"></div>
+
+    <section id="step1">
+        <h2>Round 1</h2>
+        <div class="grid-container">
+            <div>Matchup 1: <select id="r1_s1"></select></div>
+            <div>Matchup 2: <select id="r1_s2"></select></div>
+            <div>Matchup 3: <select id="r1_s3"></select></div>
+            <div>Matchup 4: <select id="r1_s4"></select></div>
+            <div>Matchup 5: <select id="r1_s5"></select></div>
+            <div>Matchup 6: <select id="r1_s6"></select></div>
+            <div>Matchup 7: <select id="r1_s7"></select></div>
+            <div>Matchup 8: <select id="r1_s8"></select></div>
+        </div>
+        <button onclick="saveRound1()" class="btn">Save Round 1</button>
+    </section>
+
+    <section id="step2" style="display:none;">
+        <h2>Conference Finals</h2>
+        <select id="r2_w1"></select>
+        <select id="r2_w2"></select>
+        <select id="r2_w3"></select>
+        <select id="r2_w4"></select>
+        <button onclick="saveRound2()" class="btn">Save Round 2</button>
+    </section>
+
+    <section id="step3" style="display:none;">
+        <h2>Stanley Cup Finals</h2>
+        <select id="f1"></select>
+        <select id="f2"></select>
+        <button onclick="saveFinals()" class="btn">Save Finals</button>
+    </section>
+
+    <section id="step4" style="display:none;">
+        <h2>Champion</h2>
+        <select id="champion"></select>
+        <button onclick="saveChampion()" class="btn">Declare Winner</button>
+    </section>
+
+    <div id="savedBracket"></div>
+</main>
     <script src="xapp.js"></script>
 </body>
 </html>
