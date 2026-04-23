@@ -1,4 +1,7 @@
-// --- 1. DATA ARRAYS ---
+// ==========================================
+// 1. DATA CONFIGURATION
+// ==========================================
+
 const r1_matchups = [
     { id: "r1_s1", teams: ["Buffalo Sabres", "Boston Bruins"] },
     { id: "r1_s2", teams: ["Tampa Bay Lightning", "Montreal Canadiens"] },
@@ -35,6 +38,170 @@ const quizData = [
     { q: "How many players (including the goalie) are on the ice for one team during regular play?", a: ["5", "6", "11"], correct: 1 },
     { q: "What is the name of the trophy awarded to the NHL champion?", a: ["The Super Bowl", "The World Cup", "The Stanley Cup"], correct: 2 },
     { q: "Which of these is the nickname of hockey legend Wayne Gretzky?", a: ["The Great One", "The Rocket", "Sid the Kid"], correct: 0 }
+];
+
+let currentQuestion = 0;
+let userScore = 0;
+
+// ==========================================
+// 2. SHARED UTILITIES
+// ==========================================
+
+function fillDropdown(id, list) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.innerHTML = "<option value=''>Select Team</option>";
+    list.forEach(team => {
+        const option = document.createElement("option");
+        option.value = team;
+        option.textContent = team;
+        el.appendChild(option);
+    });
+}
+
+// ==========================================
+// 3. BRACKET LOGIC
+// ==========================================
+
+function saveRound1() {
+    const r1_winners = r1_matchups.map(m => document.getElementById(m.id).value);
+    if (r1_winners.includes("")) {
+        document.getElementById("error").textContent = "Select all 8 winners!";
+        return;
+    }
+    fillDropdown("r2_w1", [r1_winners[0], r1_winners[1]]);
+    fillDropdown("r2_w2", [r1_winners[2], r1_winners[3]]);
+    fillDropdown("r2_w3", [r1_winners[4], r1_winners[5]]);
+    fillDropdown("r2_w4", [r1_winners[6], r1_winners[7]]);
+    document.getElementById("step1").style.opacity = "0.4";
+    document.getElementById("step2").style.display = "block";
+    document.getElementById("error").textContent = "";
+}
+
+function saveRound2() {
+    const r2_winners = ["r2_w1", "r2_w2", "r2_w3", "r2_w4"].map(id => document.getElementById(id).value);
+    if (r2_winners.includes("")) {
+        document.getElementById("error").textContent = "Select all 4 winners!";
+        return;
+    }
+    fillDropdown("f1", [r2_winners[0], r2_winners[1]]); 
+    fillDropdown("f2", [r2_winners[2], r2_winners[3]]);
+    document.getElementById("step2").style.opacity = "0.4";
+    document.getElementById("step3").style.display = "block";
+}
+
+function saveFinals() {
+    const finalists = [document.getElementById("f1").value, document.getElementById("f2").value];
+    if (finalists.includes("")) {
+        document.getElementById("error").textContent = "Select both Champions!";
+        return;
+    }
+    fillDropdown("champion", finalists);
+    document.getElementById("step3").style.opacity = "0.4";
+    document.getElementById("step4").style.display = "block";
+}
+
+function saveChampion() {
+    const champ = document.getElementById("champion").value;
+    if (!champ) return;
+    const data = { finals: [document.getElementById("f1").value, document.getElementById("f2").value], champion: champ };
+    localStorage.setItem("bracket2026", JSON.stringify(data));
+    displayBracket();
+}
+
+function displayBracket() {
+    const data = JSON.parse(localStorage.getItem("bracket2026"));
+    const display = document.getElementById("savedBracket");
+    if (data && display) {
+        display.innerHTML = `<div class="card"><h3>🏆 Final 2026 Prediction</h3><p>${data.finals[0]} vs ${data.finals[1]}</p><h2 style="color:gold;">Winner: ${data.champion}</h2></div>`;
+    }
+}
+
+// ==========================================
+// 4. TEAMS LOGIC
+// ==========================================
+
+function loadTeams() {
+    const teamListDiv = document.getElementById("teamList");
+    if (!teamListDiv) return;
+    teamListDiv.innerHTML = ""; // Clear "Loading teams..."
+    allTeams.forEach(team => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `<a href="${team.url}" target="_blank" style="color:white; text-decoration:none;"><h3>${team.name} 🔗</h3></a>`;
+        teamListDiv.appendChild(card);
+    });
+}
+
+// ==========================================
+// 5. QUIZ LOGIC
+// ==========================================
+
+function loadQuiz() {
+    const questionEl = document.getElementById("question");
+    const optionsDiv = document.getElementById("options");
+    const scoreEl = document.getElementById("score");
+    if (!questionEl || !optionsDiv) return;
+
+    if (currentQuestion >= quizData.length) {
+        questionEl.textContent = "Quiz Complete!";
+        optionsDiv.innerHTML = "";
+        scoreEl.innerHTML = `<h2>Final Score: ${userScore} / ${quizData.length}</h2>`;
+        return;
+    }
+
+    const current = quizData[currentQuestion];
+    questionEl.textContent = `Question ${currentQuestion + 1}: ${current.q}`;
+    optionsDiv.innerHTML = "";
+    
+    current.a.forEach((opt, index) => {
+        const btn = document.createElement("button");
+        btn.textContent = opt;
+        btn.style.display = "block";
+        btn.style.margin = "10px auto";
+        btn.onclick = () => {
+            if (index === current.correct) {
+                userScore++;
+                scoreEl.textContent = "✅ Correct!";
+            } else {
+                scoreEl.textContent = "❌ Wrong!";
+            }
+            setTimeout(() => {
+                currentQuestion++;
+                scoreEl.textContent = "";
+                loadQuiz();
+            }, 1000);
+        };
+        optionsDiv.appendChild(btn);
+    });
+}
+
+// ==========================================
+// 6. INITIALIZATION (FIRE ON PAGE LOAD)
+// ==========================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("NHL Playoff Hub script initialized.");
+
+    // Detect if we are on the Bracket Page
+    if (document.getElementById("r1_s1")) {
+        console.log("Bracket page detected.");
+        r1_matchups.forEach(m => fillDropdown(m.id, m.teams));
+        displayBracket();
+    }
+    
+    // Detect if we are on the Teams Page
+    if (document.getElementById("teamList")) {
+        console.log("Teams page detected.");
+        loadTeams();
+    }
+    
+    // Detect if we are on the Quiz Page
+    if (document.getElementById("question")) {
+        console.log("Quiz page detected.");
+        loadQuiz();
+    }
+});    { q: "Which of these is the nickname of hockey legend Wayne Gretzky?", a: ["The Great One", "The Rocket", "Sid the Kid"], correct: 0 }
 ];
 
 let currentQuestion = 0;
