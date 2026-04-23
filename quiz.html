@@ -1,32 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Quiz</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hockey Quiz</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <header>
+        <h1>Test Your Knowledge</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="teams.html">Teams</a>
+            <a href="xbracket.html">Bracket</a>
+            <a href="quiz.html">Quiz</a>
+        </nav>
+    </header>
 
-<header>
-    <h1>🧠 NHL Quiz</h1>
-</header>
-
-<nav>
-    <a href="index.html">Home</a>
-    <a href="teams.html">Teams</a>
-    <a href="xBracket.html">Bracket</a>
-    <a href="quiz.html">Quiz</a>
-</nav>
-
-<section class="container">
-
-<div class="card">
-    <p id="question"></p>
-    <div id="options"></div>
-    <p id="score"></p>
-</div>
-
-</section>
-
-<script src="app.js"></script>
+    <main>
+        <div id="quiz-container">
+            </div>
+        <div id="quiz-results"></div>
+    </main>
+    <script src="app.js"></script>
 </body>
 </html>
