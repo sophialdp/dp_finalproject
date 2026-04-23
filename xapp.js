@@ -1,3 +1,4 @@
+// --- 1. DATA ARRAYS ---
 const r1_matchups = [
     { id: "r1_s1", teams: ["Buffalo Sabres", "Boston Bruins"] },
     { id: "r1_s2", teams: ["Tampa Bay Lightning", "Montreal Canadiens"] },
@@ -38,6 +39,8 @@ const quizData = [
 
 let currentQuestion = 0;
 let userScore = 0;
+
+// --- 2. CORE FUNCTIONS ---
 
 function fillDropdown(id, list) {
     const el = document.getElementById(id);
@@ -108,6 +111,7 @@ function displayBracket() {
 function loadTeams() {
     const teamListDiv = document.getElementById("teamList");
     if (!teamListDiv) return;
+    teamListDiv.innerHTML = ""; // Clear "Loading teams..."
     allTeams.forEach(team => {
         const card = document.createElement("div");
         card.className = "card";
@@ -145,7 +149,6 @@ function loadQuiz() {
             } else {
                 scoreEl.textContent = "❌ Wrong!";
             }
-            // Move to next question after 1 second delay
             setTimeout(() => {
                 currentQuestion++;
                 scoreEl.textContent = "";
@@ -156,15 +159,21 @@ function loadQuiz() {
     });
 }
 
-window.onload = () => {
+// --- 3. THE INITIALIZATION TRIGGER ---
+document.addEventListener('DOMContentLoaded', () => {
+    // Check for Bracket Page
     if (document.getElementById("r1_s1")) {
         r1_matchups.forEach(m => fillDropdown(m.id, m.teams));
         displayBracket();
     }
+    
+    // Check for Teams Page
     if (document.getElementById("teamList")) {
         loadTeams();
     }
+    
+    // Check for Quiz Page
     if (document.getElementById("question")) {
         loadQuiz();
     }
-};
+});
